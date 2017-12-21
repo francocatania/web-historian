@@ -27,10 +27,9 @@ exports.handleRequest = function (request, response) {
 
   if (request.method === 'POST') {
     parseInput(request, function(website) {
-      archiveHelpers.isUrlArchived(website, function(isArchived) {
+      archiveHelpers.isUrlArchived(website, function(isArchived, formattedUrl) {
         if (isArchived) {
-          //clean website (so that www. & .com are removed)
-          httpHelpers.serveAssets(response, path.join(archiveHelpers.paths.archivedSites, 'www-google-com.html'));
+          httpHelpers.serveAssets(response, path.join(archiveHelpers.paths.archivedSites, formattedUrl));
         } else {
           httpHelpers.serveAssets(response, path.join(__dirname, '/public/loading.html'));
           archiveHelpers.addUrlToList(website);
@@ -38,11 +37,4 @@ exports.handleRequest = function (request, response) {
       });
     });
   } 
-
-  
-  //   else {
-  //   response.writeHead(404);
-  //   response.write('File not found!');
-  //   response.end();
-  // }
 };

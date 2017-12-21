@@ -48,10 +48,10 @@ exports.addUrlToList = function(url, callback) {
 exports.isUrlArchived = function(url, callback) {
   fs.readdir(exports.paths.archivedSites, function(err, files) {
     var formattedUrl = url.replace(/\./g, '-') + '.html';
-    console.log(files);
-    console.log(formattedUrl);
-    console.log(files.includes(formattedUrl));
-    callback(files.includes(formattedUrl));
+    // console.log(files);
+    // console.log(formattedUrl);
+    // console.log(files.includes(formattedUrl));
+    callback(files.includes(formattedUrl), formattedUrl);
   });
 };
 
