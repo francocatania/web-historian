@@ -34,7 +34,7 @@ exports.handleRequest = function (request, response) {
         //   httpHelpers.serveAssets(response, path.join(__dirname, '/public/loading.html'));
         } else {
           httpHelpers.serveAssets(response, path.join(__dirname, '/public/loading.html'));
-          //archiveHelpers.addUrlToList(website);
+          archiveHelpers.addUrlToList(website);
         }
       });
     });
