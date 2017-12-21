@@ -5,6 +5,7 @@ var fs = require('fs');
 var url = require('url');
 var httpHelpers = require('./http-helpers');
 var archiveHelpers = require('../helpers/archive-helpers');
+var htmlFetcher = require('../workers/htmlfetcher');
 
 var parseInput = function(request, callback) {
   var input = '';
@@ -19,7 +20,6 @@ var parseInput = function(request, callback) {
 exports.handleRequest = function (request, response) {
   if (request.method === 'GET' && request.url === '/') {
     httpHelpers.serveAssets(response, path.join(__dirname, '/public/index.html'));
-    //archiveHelpers.downloadUrls(['www.google.com']); //TEST
   }
   if (request.method === 'GET' && request.url === '/styles.css') {
     httpHelpers.serveAssets(response, path.join(__dirname, '/public/styles.css')); 
@@ -36,5 +36,6 @@ exports.handleRequest = function (request, response) {
         }
       });
     });
-  } 
+  }
+  htmlFetcher.htmlDownloader(); //JUST TRYING TO SEE IF THIS WORKS
 };

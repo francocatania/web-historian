@@ -30,6 +30,7 @@ exports.readListOfUrls = function(callback) {
       throw err;
     } else {
       var websites = data.split('\n');
+      //console.log(websites);
       callback(websites);
     }
   });
@@ -47,21 +48,19 @@ exports.addUrlToList = function(url, callback) {
 
 exports.isUrlArchived = function(url, callback) {
   fs.readdir(exports.paths.archivedSites, function(err, files) {
+    console.log(url);
     var formattedUrl = url.replace(/\./g, '-') + '.html';
-    // console.log(files);
-    // console.log(formattedUrl);
-    // console.log(files.includes(formattedUrl));
     callback(files.includes(formattedUrl), formattedUrl);
   });
 };
 
 exports.downloadUrls = function(urls) { // -> takes array of urls
-  for (var i = 0; i < urls.length; i++) {
+  for (let i = 0; i < urls.length; i++) {
     request('http://' + urls[i], function(error, response, body) { // -> make a request for html of the element in the array
       if (error) {
         console.log('There is an error');
       }
-      console.log('no errors and url[i] = ', urls[i]);
+      console.log('downloadUrls is being triggered!');
       var cleanUrl = urls[i].replace(/\./g, '-');
       fs.writeFile(path.join(exports.paths.archivedSites, '/' + cleanUrl + '.html'), body); // -> write the file to the archive
     });
