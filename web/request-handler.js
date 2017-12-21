@@ -19,7 +19,7 @@ var parseInput = function(request, callback) {
 exports.handleRequest = function (request, response) {
   if (request.method === 'GET' && request.url === '/') {
     httpHelpers.serveAssets(response, path.join(__dirname, '/public/index.html'));
-    archiveHelpers.downloadUrls(['www.google.com']); //TEST
+    //archiveHelpers.downloadUrls(['www.google.com']); //TEST
   }
   if (request.method === 'GET' && request.url === '/styles.css') {
     httpHelpers.serveAssets(response, path.join(__dirname, '/public/styles.css')); 
@@ -27,12 +27,10 @@ exports.handleRequest = function (request, response) {
 
   if (request.method === 'POST') {
     parseInput(request, function(website) {
-      archiveHelpers.isUrlInList(website, function(isInList) {
-        if (isInList) { //&& isInArchive
+      archiveHelpers.isUrlArchived(website, function(isArchived) {
+        if (isArchived) {
           //clean website (so that www. & .com are removed)
-          httpHelpers.serveAssets(response, path.join(archiveHelpers.paths.archivedSites, '/google.html'));
-        // } else if (isInList) {
-        //   httpHelpers.serveAssets(response, path.join(__dirname, '/public/loading.html'));
+          httpHelpers.serveAssets(response, path.join(archiveHelpers.paths.archivedSites, 'www-google-com.html'));
         } else {
           httpHelpers.serveAssets(response, path.join(__dirname, '/public/loading.html'));
           archiveHelpers.addUrlToList(website);
