@@ -26,16 +26,31 @@ exports.initialize = function(pathsObj) {
 // modularize your code. Keep it clean!
 
 exports.readListOfUrls = function(callback) {
+
+  // fs.readFile
+
 };
 
-exports.isUrlInList = function(url, callback) {
+exports.isUrlInList = function(url, callback) { // return bool
+  // parse sites.txt
+  // traverse container...
+    // return true if site is in container
+    // return false if not
 };
+
+var container = {}; //ASK HIR IF THIS IS BEST WAY
 
 exports.addUrlToList = function(url, callback) {
+  // parse sites.txt
+  // add url to container and set value to false (value reflects if we have html)
+  // stringify container and save
 };
 
 exports.isUrlArchived = function(url, callback) {
+  // parse sites.txt
+  // return key valuevalue
 };
 
 exports.downloadUrls = function(urls) {
+  // get request from give url
 };
