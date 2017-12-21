@@ -14,7 +14,18 @@ exports.serveAssets = function(response, asset, callback) {
   // Write some code here that helps serve up your static files!
   // (Static files are things like html (yours or archived from others...),
   // css, or anything that doesn't change often.)
+  response.writeHead(200, {'Content-Type': 'text/html'});
 
+  
+  fs.readFile(asset, null, function(error, data) {
+    if (error) {
+      response.writeHead(404);
+      response.write('File not found!');
+    } else {
+      response.write(data);
+    }
+    response.end();
+  });
 };
 
 

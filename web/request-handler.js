@@ -3,24 +3,38 @@ var archive = require('../helpers/archive-helpers');
 var http = require('http'); //we may not need this
 var fs = require('fs');
 var url = require('url');
+var httpHelpers = require('./http-helpers');
+var archiveHelpers = require('../helpers/archive-helpers');
+
 
 exports.handleRequest = function (request, response) {
-  response.writeHead(200, {'Content-Type': 'text/html'});
+  
+  httpHelpers.serveAssets(response, path.join(__dirname, '/public/index.html')); // renders index.html when the page is first loaded
+  
 
-  fs.readFile(path.join(__dirname, '/public/index.html'), null, function(error, data) {
-    if (error) {
-      response.writeHead(404);
-      response.write('File not found!');
-    } else {
-      var input = '';
-      request.on('data', function(chunk) {
-        input += chunk.toString();
-        console.log(input.slice(4));
-      });
-      response.write(data);
+  // if (request.method === 'POST') {
+  //   console.log('this url is making a POST request', request.url);
+  //   // archiveHelpers.readListOfUrls();
+  //   archiveHelpers.readListOfUrls();
+  // }
+
+  var input = '';
+  request.on('data', function(chunk) {
+    input += chunk.toString();
+    var website = input.slice(4);
+
+    if (website) {
+      console.log(website);
+      archiveHelpers.readListOfUrls();
     }
-    response.end();
+
+    // if (weHaveHTML(website)) {
+    //   //serve that HTML
+    // } else {
+    //   httpHelpers.serveAssets(response, path.join(__dirname, '/public/loading.html'));
+    // }
   });
+
 };
 
 //archive.paths.list

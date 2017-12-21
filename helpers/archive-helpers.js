@@ -26,31 +26,36 @@ exports.initialize = function(pathsObj) {
 // modularize your code. Keep it clean!
 
 exports.readListOfUrls = function(callback) {
-
-  // fs.readFile
-
+  fs.readFile(exports.paths.list, 'utf8', function(err, data) {
+    if (err) {
+      throw err;
+    } else {
+      var websites = data.split('\n');
+      // console.log(websites);
+      callback(websites);
+    }
+  });
 };
 
-exports.isUrlInList = function(url, callback) { // return bool
-  // parse sites.txt
-  // traverse container...
-    // return true if site is in container
-    // return false if not
+exports.isUrlInList = function(url, callback) { 
+  exports.readListOfUrls(function(websites) {
+    callback(websites.includes(url));
+  });
 };
-
-var container = {}; //ASK HIR IF THIS IS BEST WAY
 
 exports.addUrlToList = function(url, callback) {
-  // parse sites.txt
-  // add url to container and set value to false (value reflects if we have html)
-  // stringify container and save
+  exports.isUrlInList(url, function(boolResult) {
+    if (!boolResult) {
+      fs.appendFile(exports.paths.list, url); //this needs a callback
+    }
+  });
 };
 
 exports.isUrlArchived = function(url, callback) {
-  // parse sites.txt
-  // return key valuevalue
+
 };
 
 exports.downloadUrls = function(urls) {
-  // get request from give url
+
 };
+
