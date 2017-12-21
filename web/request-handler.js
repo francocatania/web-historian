@@ -19,6 +19,7 @@ var parseInput = function(request, callback) {
 exports.handleRequest = function (request, response) {
   if (request.method === 'GET' && request.url === '/') {
     httpHelpers.serveAssets(response, path.join(__dirname, '/public/index.html'));
+    archiveHelpers.downloadUrls(['www.google.com']); //TEST
   }
   if (request.method === 'GET' && request.url === '/styles.css') {
     httpHelpers.serveAssets(response, path.join(__dirname, '/public/styles.css')); 
@@ -39,6 +40,8 @@ exports.handleRequest = function (request, response) {
       });
     });
   } 
+
+  
   //   else {
   //   response.writeHead(404);
   //   response.write('File not found!');
