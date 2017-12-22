@@ -54,17 +54,14 @@ exports.isUrlArchived = function(url, callback) {
   });
 };
 
-exports.downloadUrls = function(urls) { // -> takes array of urls
-  for (let i = 0; i < urls.length; i++) {
-    request('http://' + urls[i], function(error, response, body) { // -> make a request for html of the element in the array
-      if (error) {
-        console.log('There is an error');
-      }
-      console.log('downloadUrls is being triggered!');
-      var cleanUrl = urls[i].replace(/\./g, '-');
-      fs.writeFile(path.join(exports.paths.archivedSites, '/' + cleanUrl + '.html'), body); // -> write the file to the archive
-    });
-  }
+exports.downloadUrl = function(url) { // -> takes array of urls
+  request('http://' + url, function(error, response, body) { // -> make a request for html of the element in the array
+    if (error) {
+      console.log('There is an error');
+    }
+    var cleanUrl = url.replace(/\./g, '-');
+    fs.writeFile(path.join(exports.paths.archivedSites, '/' + cleanUrl + '.html'), body); // -> write the file to the archive
+  });
 };
 
 

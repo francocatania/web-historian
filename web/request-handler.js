@@ -37,5 +37,4 @@ exports.handleRequest = function (request, response) {
       });
     });
   }
-  htmlFetcher.htmlDownloader(); //JUST TRYING TO SEE IF THIS WORKS
 };
